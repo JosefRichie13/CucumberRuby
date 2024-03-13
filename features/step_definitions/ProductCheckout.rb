@@ -44,7 +44,7 @@ end
 And('I should see the tax calculated at 8 percent') do  
 
     taxCalculatedByAPP = DriverMethods.GetTextFromElement(@driver, :class_name, Selectors::TAXCALCULATED).scan(/\d+\.\d+/).first.to_f
-    taxCalculatedByCODE = (DriverMethods.GetTextFromElement(@driver, :class_name, Selectors::SUBTOTAL).scan(/\d+\.\d+/).first.to_f * 0.08).round(1)
+    taxCalculatedByCODE = (DriverMethods.GetTextFromElement(@driver, :class_name, Selectors::SUBTOTAL).scan(/\d+\.\d+/).first.to_f * 0.08).round(2)
     expect(taxCalculatedByAPP).to eq(taxCalculatedByCODE)
 
     totalCalculatedByAPP = DriverMethods.GetTextFromElement(@driver, :css, Selectors::FULLTOTAL).scan(/\d+\.\d+/).first.to_f
