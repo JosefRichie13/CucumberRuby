@@ -18,5 +18,7 @@ class Selectors
     CONTINUEBUTTON = "continue"
     FINISHBUTTON = "finish"
     CHECKOUTBANNER = "complete-header"
+    PRICELIST = "inventory_item_price"
+    PRODUCTSORT = "product_sort_container"
 
 end
