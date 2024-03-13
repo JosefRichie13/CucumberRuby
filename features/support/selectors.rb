@@ -20,5 +20,14 @@ class Selectors
     CHECKOUTBANNER = "complete-header"
     PRICELIST = "inventory_item_price"
     PRODUCTSORT = "product_sort_container"
+    PRODUCTBACKPACK = "button[name*=sauce-labs-backpack]"
+    PRODUCTBIKELIGHT = "button[name*=sauce-labs-bike-light]"
+    PRODUCTTSHIRT = "button[name*=sauce-labs-bolt-t-shirt]"
+    PRODUCTJACKET = "button[name*=sauce-labs-fleece-jacket]"
+    PRODUCTONESIE = "button[name*=sauce-labs-onesie]"
+    PRODUCTTSHIRTRED = "button[name*=allthethings]"
+    SUBTOTAL = "summary_subtotal_label"
+    TAXCALCULATED = "summary_tax_label"
+    FULLTOTAL = "div[class*=summary_total_label]"
 
 end
