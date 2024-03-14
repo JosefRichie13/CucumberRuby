@@ -4,9 +4,11 @@ Given('I remove {string} from the cart') do |productType|
 end
 
 
+
 Given('I add {string} to the cart') do |productType|
     addOrRemoveFromCart(productType)
 end
+
 
 
 def addOrRemoveFromCart(productType)
@@ -26,13 +28,19 @@ def addOrRemoveFromCart(productType)
     end
 end
 
+
+
 Given('I click on the cart') do
     DriverMethods.ClickButton(@driver, :class_name, Selectors::CART)
 end
 
+
+
 Given('I checkout') do
     DriverMethods.ClickButton(@driver, :id, Selectors::CHECKOUT)
 end
+
+
 
 And('I enter my information to continue') do |table| 
     DriverMethods.TypeText(@driver, :id, Selectors::FIRSTNAME, table.rows.first[0])
@@ -41,6 +49,14 @@ And('I enter my information to continue') do |table|
     DriverMethods.ClickButton(@driver, :id, Selectors::CONTINUEBUTTON)
 end 
 
+
+# We get the Tax shown in the UI, extract the number, convert it into float and store it in a variable, taxCalculatedByAPP
+# We get the non taxed sum shown in the UI, extract the number, convert into float, multiple it by 0.08 (8%), round the result off to 2 and store it in a variable, taxCalculatedByCODE
+# Then we check if both taxCalculatedByAPP and taxCalculatedByCODE are equal
+
+# We get the total shown in the UI, extract the number, convert it into float and store it in a variable, totalCalculatedByAPP
+# We get the non tax added total shown in the UI, extract the number, convert into float, add the tax calculated (taxCalculatedByCODE) and store it in a variable, totalCalculatedByCODE
+# Then we check if both totalCalculatedByAPP and totalCalculatedByCODE are equal
 And('I should see the tax calculated at 8 percent') do  
 
     taxCalculatedByAPP = DriverMethods.GetTextFromElement(@driver, :class_name, Selectors::TAXCALCULATED).scan(/\d+\.\d+/).first.to_f
@@ -50,5 +66,21 @@ And('I should see the tax calculated at 8 percent') do
     totalCalculatedByAPP = DriverMethods.GetTextFromElement(@driver, :css, Selectors::FULLTOTAL).scan(/\d+\.\d+/).first.to_f
     totalCalculatedByCODE = DriverMethods.GetTextFromElement(@driver, :class_name, Selectors::SUBTOTAL).scan(/\d+\.\d+/).first.to_f + taxCalculatedByCODE
     expect(totalCalculatedByAPP).to eq(totalCalculatedByCODE)
+
+end 
+
+
+# We get the individual prices into an array, individualPrices
+# We remove the $ sign, convert the array elements into float and sum it. Storing it in a variable, sumCalculatedByCODE
+# We get the total displayed in the UI, extract the number, convert into float and store it in a variable, sumCalculatedByAPP
+# Then we check if sumCalculatedByCODE and sumCalculatedByAPP are equal
+Then('I should see the individual items total correctly') do
+    individualPrices = DriverMethods.GetTextFromAListOfElements(@driver, :class_name, Selectors::PRICELIST)
+    individualPricesInFloatWithoutSign = individualPrices.map { |price| price.delete('$').to_f }
+    sumCalculatedByCODE = individualPricesInFloatWithoutSign.sum
+
+    sumCalculatedByAPP = DriverMethods.GetTextFromElement(@driver, :class_name, Selectors::SUBTOTAL).scan(/\d+\.\d+/).first.to_f
+
+    expect(sumCalculatedByCODE).to eq(sumCalculatedByAPP)
 
 end 
