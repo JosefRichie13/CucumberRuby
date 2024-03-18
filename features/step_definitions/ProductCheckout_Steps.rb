@@ -14,39 +14,39 @@ end
 def addOrRemoveFromCart(productType)
     case productType
     when "Sauce Labs Backpack"
-        DriverMethods.ClickButton(@driver, :css, Selectors::PRODUCTBACKPACK)
+        DriverMethods.ClickButton(:css, Selectors::PRODUCTBACKPACK)
     when "Sauce Labs Bike Light"
-        DriverMethods.ClickButton(@driver, :css, Selectors::PRODUCTBIKELIGHT)
+        DriverMethods.ClickButton(:css, Selectors::PRODUCTBIKELIGHT)
     when"Sauce Labs Bolt T-Shirt"
-        DriverMethods.ClickButton(@driver, :css, Selectors::PRODUCTTSHIRT)
+        DriverMethods.ClickButton(:css, Selectors::PRODUCTTSHIRT)
     when"Sauce Labs Fleece Jacket"
-        DriverMethods.ClickButton(@driver, :css, Selectors::PRODUCTJACKET)
+        DriverMethods.ClickButton(:css, Selectors::PRODUCTJACKET)
     when "Sauce Labs Onesie"
-        DriverMethods.ClickButton(@driver, :css, Selectors::PRODUCTONESIE)
+        DriverMethods.ClickButton(:css, Selectors::PRODUCTONESIE)
     when "Test.allTheThings() T-Shirt (Red)"
-        DriverMethods.ClickButton(@driver, :css, Selectors::PRODUCTTSHIRTRED)
+        DriverMethods.ClickButton(:css, Selectors::PRODUCTTSHIRTRED)
     end
 end
 
 
 
 Given('I click on the cart') do
-    DriverMethods.ClickButton(@driver, :class_name, Selectors::CART)
+    DriverMethods.ClickButton(:class_name, Selectors::CART)
 end
 
 
 
 Given('I checkout') do
-    DriverMethods.ClickButton(@driver, :id, Selectors::CHECKOUT)
+    DriverMethods.ClickButton(:id, Selectors::CHECKOUT)
 end
 
 
 
 And('I enter my information to continue') do |table| 
-    DriverMethods.TypeText(@driver, :id, Selectors::FIRSTNAME, table.rows.first[0])
-    DriverMethods.TypeText(@driver, :id, Selectors::LASTNAME, table.rows.first[1])
-    DriverMethods.TypeText(@driver, :id, Selectors::ZIPCODE, table.rows.first[2])
-    DriverMethods.ClickButton(@driver, :id, Selectors::CONTINUEBUTTON)
+    DriverMethods.TypeText(:id, Selectors::FIRSTNAME, table.rows.first[0])
+    DriverMethods.TypeText(:id, Selectors::LASTNAME, table.rows.first[1])
+    DriverMethods.TypeText(:id, Selectors::ZIPCODE, table.rows.first[2])
+    DriverMethods.ClickButton(:id, Selectors::CONTINUEBUTTON)
 end 
 
 
@@ -59,12 +59,12 @@ end
 # Then we check if both totalCalculatedByAPP and totalCalculatedByCODE are equal
 And('I should see the tax calculated at 8 percent') do  
 
-    taxCalculatedByAPP = DriverMethods.GetTextFromElement(@driver, :class_name, Selectors::TAXCALCULATED).scan(/\d+\.\d+/).first.to_f
-    taxCalculatedByCODE = (DriverMethods.GetTextFromElement(@driver, :class_name, Selectors::SUBTOTAL).scan(/\d+\.\d+/).first.to_f * 0.08).round(2)
+    taxCalculatedByAPP = DriverMethods.GetTextFromElement(:class_name, Selectors::TAXCALCULATED).scan(/\d+\.\d+/).first.to_f
+    taxCalculatedByCODE = (DriverMethods.GetTextFromElement(:class_name, Selectors::SUBTOTAL).scan(/\d+\.\d+/).first.to_f * 0.08).round(2)
     expect(taxCalculatedByAPP).to eq(taxCalculatedByCODE)
 
-    totalCalculatedByAPP = DriverMethods.GetTextFromElement(@driver, :css, Selectors::FULLTOTAL).scan(/\d+\.\d+/).first.to_f
-    totalCalculatedByCODE = DriverMethods.GetTextFromElement(@driver, :class_name, Selectors::SUBTOTAL).scan(/\d+\.\d+/).first.to_f + taxCalculatedByCODE
+    totalCalculatedByAPP = DriverMethods.GetTextFromElement(:css, Selectors::FULLTOTAL).scan(/\d+\.\d+/).first.to_f
+    totalCalculatedByCODE = DriverMethods.GetTextFromElement(:class_name, Selectors::SUBTOTAL).scan(/\d+\.\d+/).first.to_f + taxCalculatedByCODE
     expect(totalCalculatedByAPP).to eq(totalCalculatedByCODE)
 
 end 
@@ -75,11 +75,11 @@ end
 # We get the total displayed in the UI, extract the number, convert into float and store it in a variable, sumCalculatedByAPP
 # Then we check if sumCalculatedByCODE and sumCalculatedByAPP are equal
 Then('I should see the individual items total correctly') do
-    individualPrices = DriverMethods.GetTextFromAListOfElements(@driver, :class_name, Selectors::PRICELIST)
+    individualPrices = DriverMethods.GetTextFromAListOfElements(:class_name, Selectors::PRICELIST)
     individualPricesInFloatWithoutSign = individualPrices.map { |price| price.delete('$').to_f }
     sumCalculatedByCODE = individualPricesInFloatWithoutSign.sum
 
-    sumCalculatedByAPP = DriverMethods.GetTextFromElement(@driver, :class_name, Selectors::SUBTOTAL).scan(/\d+\.\d+/).first.to_f
+    sumCalculatedByAPP = DriverMethods.GetTextFromElement(:class_name, Selectors::SUBTOTAL).scan(/\d+\.\d+/).first.to_f
 
     expect(sumCalculatedByCODE).to eq(sumCalculatedByAPP)
 

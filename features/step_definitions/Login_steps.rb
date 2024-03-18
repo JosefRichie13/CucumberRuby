@@ -7,49 +7,49 @@ DriverMethods = DriverMethods.new
 HelperMethods = HelperMethods.new 
 
 Given('I open the web page') do
-    DriverMethods.NavigateToURL(@driver, Configs::MAINURL)
+    DriverMethods.NavigateToURL(Configs::MAINURL)
 end
 
 When('I login as a {string} user') do |usertype|
     case usertype
     when "standard"
-        DriverMethods.TypeText(@driver, :id, Selectors::USERNAME, Configs::VALIDUSER)
-        DriverMethods.TypeText(@driver, :id, Selectors::PASSSWORD, Configs::PASSWORD)
+        DriverMethods.TypeText(:id, Selectors::USERNAME, Configs::VALIDUSER)
+        DriverMethods.TypeText(:id, Selectors::PASSSWORD, Configs::PASSWORD)
     when "locked"
-        DriverMethods.TypeText(@driver, :id, Selectors::USERNAME, Configs::LOCKEDUSER)
-        DriverMethods.TypeText(@driver, :id, Selectors::PASSSWORD, Configs::PASSWORD)
+        DriverMethods.TypeText(:id, Selectors::USERNAME, Configs::LOCKEDUSER)
+        DriverMethods.TypeText(:id, Selectors::PASSSWORD, Configs::PASSWORD)
     when"no_username"
-        DriverMethods.TypeText(@driver, :id, Selectors::PASSSWORD, Configs::PASSWORD)
+        DriverMethods.TypeText(:id, Selectors::PASSSWORD, Configs::PASSWORD)
     when"no_password"
-        DriverMethods.TypeText(@driver, :id, Selectors::USERNAME, Configs::VALIDUSER)
+        DriverMethods.TypeText(:id, Selectors::USERNAME, Configs::VALIDUSER)
     when "wrong_username"
-        DriverMethods.TypeText(@driver, :id, Selectors::USERNAME, Configs::WRONGUSER)
-        DriverMethods.TypeText(@driver, :id, Selectors::PASSSWORD, Configs::PASSWORD)
+        DriverMethods.TypeText(:id, Selectors::USERNAME, Configs::WRONGUSER)
+        DriverMethods.TypeText(:id, Selectors::PASSSWORD, Configs::PASSWORD)
     when "wrong_password"
-        DriverMethods.TypeText(@driver, :id, Selectors::USERNAME, Configs::VALIDUSER)
-        DriverMethods.TypeText(@driver, :id, Selectors::PASSSWORD, Configs::WRONGPASSWORD)
+        DriverMethods.TypeText(:id, Selectors::USERNAME, Configs::VALIDUSER)
+        DriverMethods.TypeText(:id, Selectors::PASSSWORD, Configs::WRONGPASSWORD)
     end
 
-    DriverMethods.ClickButton(@driver, :id, Selectors::LOGINBUTTON)
+    DriverMethods.ClickButton(:id, Selectors::LOGINBUTTON)
 end    
 
 Then ('I should see {string} in the {string}') do |message, page|
     case page
     when "homepage"
-        expect(message).to eq(DriverMethods.GetTextFromElement(@driver, :class_name, Selectors::HOMEPAGETITLE))
-        expect(DriverMethods.ElementVisibleOrNot(@driver, :id, Selectors::LOGINBUTTON)).to eq(false)
+        expect(message).to eq(DriverMethods.GetTextFromElement(:class_name, Selectors::HOMEPAGETITLE))
+        expect(DriverMethods.ElementVisibleOrNot(:id, Selectors::LOGINBUTTON)).to eq(false)
     when "loginpage"
-        expect(message).to eq(DriverMethods.GetTextFromElement(@driver, :class_name, Selectors::LOGINPAGETITLE))
-        expect(DriverMethods.ElementVisibleOrNot(@driver, :id, Selectors::LOGINBUTTON)).to eq(true)
+        expect(message).to eq(DriverMethods.GetTextFromElement(:class_name, Selectors::LOGINPAGETITLE))
+        expect(DriverMethods.ElementVisibleOrNot(:id, Selectors::LOGINBUTTON)).to eq(true)
     end
 end
 
 Then ('I should see the login error message {string}') do |errormessage|
-    expect(DriverMethods.GetTextFromElement(@driver, :css, Selectors::ERRORMESSAGE)).to include(errormessage)
+    expect(DriverMethods.GetTextFromElement(:css, Selectors::ERRORMESSAGE)).to include(errormessage)
 end
 
 When ('I logout of the webpage')do
-    DriverMethods.ClickButton(@driver, :id, Selectors::MENU)
+    DriverMethods.ClickButton(:id, Selectors::MENU)
     HelperMethods.SleepForABit(2)
-    DriverMethods.ClickButton(@driver, :id, Selectors::LOGOUTBUTTON)
+    DriverMethods.ClickButton(:id, Selectors::LOGOUTBUTTON)
 end
