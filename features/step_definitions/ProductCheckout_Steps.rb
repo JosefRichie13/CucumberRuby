@@ -84,3 +84,13 @@ Then('I should see the individual items total correctly') do
     expect(sumCalculatedByCODE).to eq(sumCalculatedByAPP)
 
 end 
+
+
+And('I confirm my order') do 
+    DriverMethods.ClickButton(:id, Selectors::FINISHBUTTON)
+end
+
+
+Then('I should see {string} after the order is placed') do |message|
+    expect(DriverMethods.GetTextFromElement(:class_name, Selectors::CHECKOUTBANNER)).to eq(message)
+end

@@ -6,5 +6,6 @@ class Configs
     PASSWORD = "secret_sauce"
     WRONGUSER = "wrong_user"
     WRONGPASSWORD = "wrong_password"
+    ERRORUSER = "error_user"
 
 end

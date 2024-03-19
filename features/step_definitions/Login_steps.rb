@@ -28,6 +28,9 @@ When('I login as a {string} user') do |usertype|
     when "wrong_password"
         DriverMethods.TypeText(:id, Selectors::USERNAME, Configs::VALIDUSER)
         DriverMethods.TypeText(:id, Selectors::PASSSWORD, Configs::WRONGPASSWORD)
+    when "error_user"
+        DriverMethods.TypeText(:id, Selectors::USERNAME, Configs::ERRORUSER)
+        DriverMethods.TypeText(:id, Selectors::PASSSWORD, Configs::PASSWORD)
     end
 
     DriverMethods.ClickButton(:id, Selectors::LOGINBUTTON)
