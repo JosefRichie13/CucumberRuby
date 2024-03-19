@@ -20,6 +20,7 @@ class Selectors
     CHECKOUTBANNER = "complete-header"
     PRICELIST = "inventory_item_price"
     PRODUCTSORT = "product_sort_container"
+    ITEMNUMBERINCART = "shopping_cart_badge"
     PRODUCTBACKPACK = "button[name*=sauce-labs-backpack]"
     PRODUCTBIKELIGHT = "button[name*=sauce-labs-bike-light]"
     PRODUCTTSHIRT = "button[name*=sauce-labs-bolt-t-shirt]"

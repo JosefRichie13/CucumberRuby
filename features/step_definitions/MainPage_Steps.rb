@@ -57,3 +57,9 @@ Then('the sort {string} should work correctly') do |sorttype|
 
     end
   end
+
+
+
+  Then ('I should see {string} items in the cart bubble') do |cartNumber|
+    expect(DriverMethods.GetTextFromElement(:class_name, Selectors::ITEMNUMBERINCART)).to eq(cartNumber)
+  end
