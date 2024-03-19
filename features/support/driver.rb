@@ -58,4 +58,21 @@ class DriverMethods
     end
 
 
+
+    # Returns the current URL
+    def GetTheCurrentURL()
+        return $browser.current_url
+    end
+
+
+
+    # Switches to a new window or tab
+    # Starts from 0, which is the current opened tab/window
+    # A new tab/window will be 1, and so on
+    def SwitchToANewTab(tabNumber)
+        handleID = $browser.window_handles[tabNumber]
+        $browser.switch_to.window(handleID)
+    end
+
+
 end     

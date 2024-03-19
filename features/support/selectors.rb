@@ -29,5 +29,9 @@ class Selectors
     SUBTOTAL = "summary_subtotal_label"
     TAXCALCULATED = "summary_tax_label"
     FULLTOTAL = "div[class*=summary_total_label]"
+    FOOTER = "footer"
+    FOOTER_TWITTER = "social_twitter a"
+    FOOTER_FB = "social_facebook a"
+    FOOTER_LINKEDIN = "social_linkedin a"
 
 end
